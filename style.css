@@ -161,14 +161,38 @@ header {
 }
 
 .hero-image {
+    position: relative;
     display: flex;
     justify-content: center;
+    padding: 14px;
+}
+
+.hero-image::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 35deg,
+        rgba(0, 217, 255, 0.9) 95deg,
+        transparent 150deg,
+        transparent 265deg,
+        rgba(0, 217, 255, 0.35) 320deg,
+        transparent 360deg
+    );
+    animation: profile-ring 9s linear infinite;
+    filter: blur(0.5px);
 }
 
 .profile-circle {
+    position: relative;
+    z-index: 1;
     width: 310px;
     height: 310px;
     border-radius: 50%;
+    overflow: hidden;
 
     border: 2px solid #00d9ff;
 
@@ -178,11 +202,38 @@ header {
 
     background: #111b30;
     box-shadow: 0 0 60px rgba(0, 217, 255, 0.18);
+    animation: profile-float 6s ease-in-out infinite;
 }
 
-.profile-circle span {
-    font-size: 70px;
-    color: #00d9ff;
+.profile-circle img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+@keyframes profile-ring {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes profile-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-image::before,
+    .profile-circle {
+        animation: none;
+    }
 }
 
 
